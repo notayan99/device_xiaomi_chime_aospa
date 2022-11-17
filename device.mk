@@ -17,8 +17,9 @@ PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-im
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/xiaomi
-
+    hardware/qcom/display \
+    hardware/qcom/media \
+    vendor/qcom/opensource/audio-hal/primary-hal
 # Flatten APEXs for performance
 OVERRIDE_TARGET_FLATTEN_APEX := true
 
@@ -32,8 +33,9 @@ PRODUCT_PACKAGES += \
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService-Soong \
-    com.dsi.ant@1.0.vendor
-
+    com.dsi.ant@1.0.vendor \
+    AntHalService \
+    antradio_app
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl \
@@ -63,12 +65,9 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0.vendor \
-    android.hardware.bluetooth.audio-impl \
-    vendor.qti.hardware.btconfigstore@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@2.0.vendor
+#Qti-bt
+include vendor/qcom/opensource/commonsys-intf/bluetooth/bt-commonsys-intf-board.mk
+$(call inherit-product, vendor/qcom/opensource/commonsys-intf/bluetooth/bt-system-opensource-product.mk)
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -133,7 +132,7 @@ PRODUCT_PACKAGES += \
     FM2 \
     qcom.fmradio
 
-# Gatekeeper
+ # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor
 
@@ -334,7 +333,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.power@1.2 \
     android.hardware.power@1.2.vendor \
-    android.hardware.power-service-qti
+    android.hardware.power-service
 
 # Public Libraries
 PRODUCT_COPY_FILES += \
