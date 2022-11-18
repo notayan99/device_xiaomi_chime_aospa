@@ -5,7 +5,7 @@
 #
 
 DEVICE_PATH := device/xiaomi/chime
-
+TARGET_EXCLUDE_QCOM_SEPOLICY := true
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
